@@ -39,7 +39,7 @@ class LiveDataset:
     def convert_to_tf_image(image):
         train_image = cv2.resize(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), (224, 224))
         train_image = tf.cast(train_image, tf.float32)
-        train_image = preprocess_input(train_image)
+        #train_image = preprocess_input(train_image)
         return train_image
 
 class DatasetGUI:
