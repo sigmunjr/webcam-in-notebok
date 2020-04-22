@@ -4,6 +4,7 @@ from google.colab.patches import cv2_imshow
 from IPython.display import display
 from IPython.display import HTML
 from IPython.display import clear_output
+from numpy import np
 import cv2
 import tensorflow as tf
 
