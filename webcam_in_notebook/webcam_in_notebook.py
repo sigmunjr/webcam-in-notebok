@@ -7,7 +7,7 @@ import cv2
 class WebCamera:
   def __init__(self, quality=0.8, size=None):
     self.quality = quality
-    self.build_website()
+    self.build_website(size)
 
   def __iter__(self):
     return self
