@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 class WebCamera:
-  def __init__(self, quality=0.8):
+  def __init__(self, quality=0.8, size=None):
     self.quality = quality
     self.build_website()
 
@@ -24,10 +24,10 @@ class WebCamera:
       ), -1)
 
   @staticmethod
-  def build_website():
+  def build_website(size):
     js = Javascript('''
       that = this;
-      async function initWebsite() {
+      async function initWebsite(size) {
         const video = document.createElement('video');
         video.style.display = 'block';
         const stream = await navigator.mediaDevices.getUserMedia({video: true});
@@ -41,8 +41,13 @@ class WebCamera:
           2*document.documentElement.scrollHeight, true);
 
         const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        if(!!size) {
+            canvas.width = size;
+            canvas.height = size;
+        } else {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+        }
         that.canvas = canvas;
       }
 
@@ -53,4 +58,8 @@ class WebCamera:
       }
       ''')
     display(js)
-    eval_js('initWebsite()')
+    if size is None:
+        eval_js('initWebsite(undefined)')
+    else:
+        eval_js('initWebsite({})'.format(size))
+
